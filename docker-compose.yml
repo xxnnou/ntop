@@ -5,14 +5,14 @@ services:
     image: "redis:alpine"
   nprobe:
     build:
-      context: ./Dockerfile.nprobe
+      context: nprobe/.
     image: xxnnou/nprobe
     command: ['nprobe', '--community', '--collector-port', '2055', '--zmq', 'tcp://*:1234']
     ports:
      - "2055:2055/udp"
   ntopng:
     build:
-      context: ./Dockerfile.nprobe
+      context: ntopng/.
     image: xxnnou/ntopng
     command: ["ntopng", "--community", "--redis", "redis", "--interface", "tcp://nprobe:1234", "--local-networks", "192.168.11.0/24"]
     ports:
