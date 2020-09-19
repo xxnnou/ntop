@@ -3,17 +3,28 @@ version: '3.7'
 services:
   redis:
     image: "redis:alpine"
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+
   nprobe:
     build:
       context: nprobe/.
     image: xxnnou/nprobe
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     command: ['nprobe', '--community', '--collector-port', '2055', '--zmq', 'tcp://*:1234']
     ports:
      - "2055:2055/udp"
+
   ntopng:
     build:
       context: ntopng/.
     image: xxnnou/ntopng
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
     command: ["ntopng", "--community", "--redis", "redis", "--interface", "tcp://nprobe:1234", "--local-networks", "192.168.11.0/24"]
     ports:
      - "3000:3000"
