@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  redis:
+    image: "redis:alpine"
+  nprobe:
+    build:
+      context: .
+    image: ntop/nprobe
+    #volumes:
+    #  - "./nprobe.conf:/etc/nprobe/nprobe.conf"
+    #command: ['nprobe', '--collector-port', '2055', '--zmq', 'tcp://*:1234']
+    command: ['nprobe', '--community', '--collector-port', '2055', '--zmq', 'tcp://*:1234']
+    ports:
+     - "2055:2055/udp"
+  ntopng:
+    build:
+      context: .
+    image: ntop/ntopng
+    command: ["ntopng", "--community", "--redis", "redis", "--interface", "tcp://nprobe:1234", "--local-networks", "192.168.11.0/24"]
+    ports:
+     - "3000:3000"
+    depends_on:
+     - nprobe
+     - redis
