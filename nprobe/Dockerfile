@@ -1,6 +1,8 @@
 FROM ubuntu:18.04
 MAINTAINER ntop.org
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && \
     apt-get -y -q install wget lsb-release gnupg && \
     wget -q http://apt-stable.ntop.org/16.04/all/apt-ntop-stable.deb && \

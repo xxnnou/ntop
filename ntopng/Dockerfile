@@ -1,8 +1,7 @@
 FROM ubuntu:20.04
 MAINTAINER ntop.org
 
-ENV LANG C.UTF-8
-ENV TZ=Asia/Phnom_Penh
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
     apt-get -y -q install wget lsb-release gnupg && \
