@@ -12,7 +12,7 @@ RUN apt-get update && \
 RUN apt-get update && \
     apt-get -y install nprobe 
 
-RUN echo '#!/bin/bash\nnprobe "$@"' > /run.sh && \
-    chmod +x /run.sh
+#RUN echo '#!/bin/bash/nprobe "$@"' > /run.sh && \
+#    chmod +x /run.sh
 
-ENTRYPOINT ["/run.sh"]
+#ENTRYPOINT ["/run.sh"]
